@@ -40,9 +40,8 @@ if [ ! -z ${PLUGIN_AWS_SECRET_ACCESS_KEY} ]; then
 fi
 
 if [ ! -z ${PLUGIN_TASK_DEFINITION} ]; then
-  ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image ${PLUGIN_IMAGE_NAME} --task-definition ${PLUGIN_TASK_DEFINITION} --use-latest-task-def --timeout ${PLUGIN_TIMEOUT} --min ${PLUGIN_MIN} --max ${PLUGIN_MAX}
+  ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image ${PLUGIN_IMAGE_NAME} --task-definition ${PLUGIN_TASK_DEFINITION}
   exit 0
 fi
 
 ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image ${PLUGIN_IMAGE_NAME} --service-name ${PLUGIN_SERVICE} --timeout ${PLUGIN_TIMEOUT} --min ${PLUGIN_MIN} --max ${PLUGIN_MAX}
-

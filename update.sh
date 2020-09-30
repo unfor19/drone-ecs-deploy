@@ -1,20 +1,4 @@
 #!/bin/bash
-
-if [ -z ${PLUGIN_CLUSTER} ]; then
-  echo "missing cluster"
-  exit 1
-fi
-
-if [ -z ${PLUGIN_IMAGE_NAME} ]; then
-  echo "missing image"
-  exit 1
-fi
-
-if [ -z ${PLUGIN_SERVICE} ]; then
-  echo "missing Service"
-  exit 1
-fi
-
 if [ -z ${PLUGIN_AWS_REGION} ]; then
   PLUGIN_AWS_REGION="us-east-1"
 fi
@@ -40,7 +24,7 @@ if [ ! -z ${PLUGIN_AWS_SECRET_ACCESS_KEY} ]; then
 fi
 
 if [ ! -z ${PLUGIN_TASK_DEFINITION} ]; then
-  ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image ${PLUGIN_IMAGE_NAME} --task-definition ${PLUGIN_TASK_DEFINITION}
+  ecs-deploy --region ${PLUGIN_AWS_REGION} --image ${PLUGIN_IMAGE_NAME} --task-definition ${PLUGIN_TASK_DEFINITION}
   exit 0
 fi
 

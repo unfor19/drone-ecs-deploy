@@ -24,7 +24,7 @@ if [ ! -z ${PLUGIN_AWS_SECRET_ACCESS_KEY} ]; then
 fi
 
 if [ ! -z ${PLUGIN_TASK_DEFINITION} ]; then
-  ecs-deploy --region ${PLUGIN_AWS_REGION} --image ${PLUGIN_IMAGE_NAME} --task-definition ${PLUGIN_TASK_DEFINITION}
+  ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image ${PLUGIN_IMAGE_NAME} --task-definition ${PLUGIN_TASK_DEFINITION}
   exit 0
 fi
 

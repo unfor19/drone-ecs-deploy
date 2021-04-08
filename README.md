@@ -29,6 +29,7 @@ Another example with optional variables
       timeout: "600" # defaults to 300 / 5 min
       max: "200" # defaults to 200
       min: "100" # defaults to 100
+      pre_script_path: xxx/xxx/xxx.sh # to run a script before the deploy start
       aws_access_key_id: ewijdfmvbasciosvdfkl # optional, better to use as secret
       aws_secret_access_key: vdfklmnopenxasweiqokdvdfjeqwuioenajks # optional, better to use as secret
 ```

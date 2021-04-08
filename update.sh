@@ -31,7 +31,7 @@ if [ ! -z ${PLUGIN_TASK_DEFINITION} ]; then
   ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image ${PLUGIN_IMAGE_NAME} --task-definition ${PLUGIN_TASK_DEFINITION} $PLUGIN_SKIP_DEPLOYMENTS_CHECK
 fi
 
-if [ -z "${PLUGIN_PRE_SCRIPT_PATH}" ]; then
+if [ ! -z "${PLUGIN_PRE_SCRIPT_PATH}" ]; then
   bash "$PLUGIN_PRE_SCRIPT_PATH"
 fi
 

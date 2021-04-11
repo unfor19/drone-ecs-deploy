@@ -42,9 +42,11 @@ Another example with multiple images in the same task
       # replaces image name that contain "ubuntu" with "ubuntu:20.04"
       # and "nginx" with "nginx:1.19.0-alpine"
       # Find and replace image names per container according to a map
-      # Format: "[image_str_contains1],[use_image1];[image_str_contains2],[use_image2]"      
-      image_map: "ubuntu,ubuntu:20.04;nginx,nginx:1.19.0-alpine"
-      
+      # Format: "[image_str_contains1],[use_image1];[image_str_contains2],[use_image2]"
+      # IMPORTANT: DO NOT wrap the image_map with quotes '' or double quotes "", otherwise
+      # you'll get parsing error
+      image_map: ubuntu,ubuntu:20.04;nginx,nginx:1.19.0-alpine
+
       cluster: my-cluster
       service: my-service
       image_name: my-image:latest

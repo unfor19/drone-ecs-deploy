@@ -35,4 +35,13 @@ if [ ! -z "${PLUGIN_PRE_SCRIPT_PATH}" ]; then
   bash "$PLUGIN_PRE_SCRIPT_PATH"
 fi
 
-ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image ${PLUGIN_IMAGE_NAME} --service-name ${PLUGIN_SERVICE} --timeout ${PLUGIN_TIMEOUT} --min ${PLUGIN_MIN} --max ${PLUGIN_MAX} --enable-rollback $PLUGIN_SKIP_DEPLOYMENTS_CHECK
+if [[  -n "$PLUGIN_IMAGE_MAP" ]]; then
+  ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image-map "$PLUGIN_IMAGE_MAP" --service-name ${PLUGIN_SERVICE} --timeout ${PLUGIN_TIMEOUT} --min ${PLUGIN_MIN} --max ${PLUGIN_MAX} --enable-rollback $PLUGIN_SKIP_DEPLOYMENTS_CHECK
+elif [[ -n "$PLUGIN_IMAGE_NAME" ]]; then
+  ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image ${PLUGIN_IMAGE_NAME} --service-name ${PLUGIN_SERVICE} --timeout ${PLUGIN_TIMEOUT} --min ${PLUGIN_MIN} --max ${PLUGIN_MAX} --enable-rollback $PLUGIN_SKIP_DEPLOYMENTS_CHECK
+else
+  echo "Must provide image_name or image_map"
+  exit 1
+fi
+
+

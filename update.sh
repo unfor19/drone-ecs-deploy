@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 if [ -z ${PLUGIN_AWS_REGION} ]; then
   PLUGIN_AWS_REGION="us-east-1"
 fi
@@ -15,11 +18,11 @@ if [ -z ${PLUGIN_MIN} ]; then
   PLUGIN_MIN="100"
 fi
 
-if [ ! -z ${PLUGIN_AWS_ACCESS_KEY_ID} ]; then
+if [[ -n "$PLUGIN_AWS_ACCESS_KEY_ID" ]]; then
   AWS_ACCESS_KEY_ID=$PLUGIN_AWS_ACCESS_KEY_ID
 fi
 
-if [ ! -z ${PLUGIN_AWS_SECRET_ACCESS_KEY} ]; then
+if [[ -n "$PLUGIN_AWS_SECRET_ACCESS_KEY" ]]; then
   AWS_SECRET_ACCESS_KEY=$PLUGIN_AWS_SECRET_ACCESS_KEY
 fi
 
@@ -27,12 +30,12 @@ if [ -n "$PLUGIN_SKIP_DEPLOYMENTS_CHECK" ]; then
   PLUGIN_SKIP_DEPLOYMENTS_CHECK="--skip-deployments-check"
 fi
 
-if [ ! -z ${PLUGIN_TASK_DEFINITION} ]; then
-  ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image ${PLUGIN_IMAGE_NAME} --task-definition ${PLUGIN_TASK_DEFINITION} $PLUGIN_SKIP_DEPLOYMENTS_CHECK
+if [[ -n "$PLUGIN_PRE_SCRIPT_PATH" ]]; then
+  bash "$PLUGIN_PRE_SCRIPT_PATH"
 fi
 
-if [ ! -z "${PLUGIN_PRE_SCRIPT_PATH}" ]; then
-  bash "$PLUGIN_PRE_SCRIPT_PATH"
+if [[ -n "$PLUGIN_TASK_DEFINITION" ]]; then
+  ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image ${PLUGIN_IMAGE_NAME} --task-definition ${PLUGIN_TASK_DEFINITION} $PLUGIN_SKIP_DEPLOYMENTS_CHECK
 fi
 
 if [[ -n "$PLUGIN_IMAGE_MAP" ]]; then

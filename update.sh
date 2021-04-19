@@ -31,7 +31,14 @@ if [ -n "$PLUGIN_SKIP_DEPLOYMENTS_CHECK" ]; then
 fi
 
 if [[ -n "$PLUGIN_PRE_SCRIPT_PATH" ]]; then
-  bash "$PLUGIN_PRE_SCRIPT_PATH"
+  pre_script_output="$(bash "$PLUGIN_PRE_SCRIPT_PATH" 2>&1 || true)"
+  if [[ "$pre_script_output" =~ "EXIT_SUCCESS" ]]; then
+    echo "PRE_SCRIPT_PATH requested to terminate successfully."
+    exit 0
+  else
+    echo -e "PRE_SCRIPT_PATH Output:"
+    echo -e "$pre_script_output"
+  fi
 fi
 
 if [[ -n "$PLUGIN_TASK_DEFINITION" ]]; then

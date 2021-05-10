@@ -18,6 +18,10 @@ if [ -z ${PLUGIN_MIN} ]; then
   PLUGIN_MIN="100"
 fi
 
+if [[ -n "$PLUGIN_FORCE_NEW_DEPLOYMENT" ]]; then
+  PLUGIN_FORCE_NEW_DEPLOYMENT="--force-new-deployment"
+fi
+
 if [[ -n "$PLUGIN_AWS_ACCESS_KEY_ID" ]]; then
   AWS_ACCESS_KEY_ID=$PLUGIN_AWS_ACCESS_KEY_ID
 fi
@@ -46,9 +50,9 @@ if [[ -n "$PLUGIN_TASK_DEFINITION" ]]; then
 fi
 
 if [[ -n "$PLUGIN_IMAGE_MAP" ]]; then
-  ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image-map "$PLUGIN_IMAGE_MAP" --service-name ${PLUGIN_SERVICE} --timeout ${PLUGIN_TIMEOUT} --min ${PLUGIN_MIN} --max ${PLUGIN_MAX} --enable-rollback $PLUGIN_SKIP_DEPLOYMENTS_CHECK
+  ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image-map "$PLUGIN_IMAGE_MAP" --service-name ${PLUGIN_SERVICE} --timeout ${PLUGIN_TIMEOUT} --min ${PLUGIN_MIN} --max ${PLUGIN_MAX} --enable-rollback $PLUGIN_SKIP_DEPLOYMENTS_CHECK $PLUGIN_FORCE_NEW_DEPLOYMENT
 elif [[ -n "$PLUGIN_IMAGE_NAME" ]]; then
-  ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image ${PLUGIN_IMAGE_NAME} --service-name ${PLUGIN_SERVICE} --timeout ${PLUGIN_TIMEOUT} --min ${PLUGIN_MIN} --max ${PLUGIN_MAX} --enable-rollback $PLUGIN_SKIP_DEPLOYMENTS_CHECK
+  ecs-deploy --region ${PLUGIN_AWS_REGION} --cluster ${PLUGIN_CLUSTER} --image ${PLUGIN_IMAGE_NAME} --service-name ${PLUGIN_SERVICE} --timeout ${PLUGIN_TIMEOUT} --min ${PLUGIN_MIN} --max ${PLUGIN_MAX} --enable-rollback $PLUGIN_SKIP_DEPLOYMENTS_CHECK $PLUGIN_FORCE_NEW_DEPLOYMENT
 else
   echo "Must provide image_name or image_map"
   exit 1

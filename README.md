@@ -65,3 +65,7 @@ Another example with multiple images in the same task
 * AWS_SECRET_ACCESS_KEY
 
 If no AWS_ACCESS_KEY_ID && AWS_SECRET_ACCESS_KEY the plugin will use the instance IAM role.
+
+## Flags
+
+Added `force_new_deployment`

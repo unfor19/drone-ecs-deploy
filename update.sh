@@ -2,7 +2,7 @@
 
 set -e
 
-if [ -z ${PLUGIN_AWS_REGION} ]; then
+if [[ -z ${PLUGIN_AWS_REGION} ]]; then
   PLUGIN_AWS_REGION="us-east-1"
 fi
 
